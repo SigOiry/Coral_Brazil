@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+Data/img/L2A_S2C_Thais/*
+/.quarto/
+**/*.quarto_ipynb
