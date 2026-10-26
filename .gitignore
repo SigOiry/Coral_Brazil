@@ -4,5 +4,8 @@
 .Ruserdata
 
 Data/img/L2A_S2C_Thais/*
+
+Data/S2/*
 /.quarto/
 **/*.quarto_ipynb
+.posit/assistant

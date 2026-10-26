@@ -18,7 +18,11 @@ editor_options:
 ---
 
 ::: {style="text-align: center; margin-top: 20px;"}
-<button onclick="window.open(&#39;https://github.com/SigOiry/Coral_Brazil&#39;, &#39;_blank&#39;);" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Access the code and Data</button>
+<button onclick="window.open(&#39;https://github.com/SigOiry/Coral_Brazil&#39;, &#39;_blank&#39;);" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+
+Access the code and Data
+
+</button>
 :::
 
 ## Overview
@@ -35,9 +39,9 @@ library(patchwork)
 
 dir.create("Figures", showWarnings = FALSE)
 selected_dates <- as.Date(c(
-  "20170225", "20180302", "20180317", "20190220", "20190121",
+  "20170225", "20180302", "20180317", "20180401","20190220", "20190121", "20190406", "20190421",
   "20201231", "20200210", "20200111", "20201201", "20220331",
-  "20230420", "20240224", "20250315"
+  "20230420", "20240224", "20240409","20250315", "20260419"
 ), format = "%Y%m%d")
 
 # Acquisition dates occupy positions 12-19 in Sentinel-2 product names.
@@ -57,16 +61,24 @@ list_scenes <- function(directory, pattern) {
 
 ```{mermaid}
 flowchart TD
-  A[Reference spectra] --> B[Weight spectra by Sentinel-2 band responses]
+  A[Reference spectra] --> B[Weight spectra by Sentinel-2 
+  band responses]
   B --> C[Endmember matrix]
-  D[Multiband images and geomorphic zones] --> E[Non-negative spectral unmixing]
+  D[Multiband images and 
+  geomorphic zones] --> E[Non-negative spectral unmixing]
   C --> E
-  E --> F[Group endmembers into cover classes]
-  F --> G[Normalize the four benthic classes without water]
-  H[Selected images: NDWI greater than 0.3] --> I[Retain pixels never flagged as water]
-  G --> J[Apply spatial masks and select dates]
+  E --> F[Group endmembers into 
+  cover classes]
+  F --> G[Normalize the four 
+  benthic classes without water]
+  H[Selected images: NDWI greater 
+  than 0.3] --> I[Retain pixels never flagged 
+  as water]
+  G --> J[Apply spatial masks and 
+  select dates]
   I --> J
-  J --> K[Threshold areas and temporal maps]
+  J --> K[Threshold areas and 
+  temporal maps]
 ```
 
 ### Spectral library and band integration
@@ -88,7 +100,7 @@ Preprocessing is disabled by default because the existing processed rasters are 
 #| warning: false
 #| eval: !expr params$run_preprocessing
 
-img_list <- list.files("Data/img/L2A_S2C_Thais", pattern = "\\.SAFE$", include.dirs = TRUE, full.names = TRUE) |>
+img_list <- list.files("Data/img/img", pattern = "\\.tif$", include.dirs = TRUE, full.names = TRUE) |>
   as_tibble() |>
   rename(path = "value") |>
   mutate(
